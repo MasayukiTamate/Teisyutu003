@@ -1,11 +1,14 @@
 from bs4 import BeautifulSoup
 import requests
 
-url = "https://www.amazon.co.jp/?tag=lenovo01-22&linkCode=ure&creative=6339"
+url = "https://toukei-lab.com/scraping_training"
 
 response = requests.get(url, timeout=100)
 soup = BeautifulSoup(response.text, "html.parser")
 
-print(response.text)
-print("タイトル",soup.titel)
-print(soup.string)
+
+for tag in soup.select("#toc_container > p"):
+    print(tag.get_text())
+
+for tag in soup.select("#main-contents > section > article > div.cps-post-main-box > div > p:nth-child(4)"):
+    print(tag.get_text())
